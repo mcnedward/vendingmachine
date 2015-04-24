@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<head>
+<title>Vending Machine</title>
+</head>
+
+<body>
+	<h3>Items</h3>
+	<h:form>
+		<div>
+			<h:commandButton class="button" id="btnReload"
+			action="#{vendingMachine.reloadMachine}" value="Reload" />
+		</div>
+		<div style="display:block">
+			<ui:repeat value="#{vendingMachine.itemsA}" var="item">
+				<div style="width:15%;display:inline-block">
+					<h4><h:outputText value="#{item.name}"/></h4>
+					<h5><h:outputText value="#{item.price}"/></h5>
+					<h5><h:outputText value="#{item.location}"/></h5>
+					<h:commandButton class="button" id="btnSelectItem" rendered="#{vendingMachine.depositedMoney >= item.price}"
+						action="#{vendingMachine.buyItem(item)}" value="BUY" />
+				</div>
+			</ui:repeat>
+		</div>
+		<div style="display:block">
+		<ui:repeat value="#{vendingMachine.itemsB}" var="item">
+			<div style="width:15%;display:inline-block">
+				<h4><h:outputText value="#{item.name}"/></h4>
+				<h5><h:outputText value="#{item.price}"/></h5>
+				<h5><h:outputText value="#{item.location}"/></h5>
+					<h:commandButton class="button" id="btnSelectItem" rendered="#{vendingMachine.depositedMoney >= item.price}"
+						action="#{vendingMachine.buyItem(item)}" value="BUY" />
+			</div>
+		</ui:repeat>
+		</div>
+		<div style="display:block">
+			<ui:repeat value="#{vendingMachine.itemsC}" var="item">
+				<div style="width:15%;display:inline-block">
+					<h4><h:outputText value="#{item.name}"/></h4>
+					<h5><h:outputText value="#{item.price}"/></h5>
+					<h5><h:outputText value="#{item.location}"/></h5>
+					<h:commandButton class="button" id="btnSelectItem" rendered="#{vendingMachine.depositedMoney >= item.price}"
+						action="#{vendingMachine.buyItem(item)}" value="BUY" />
+				</div>
+			</ui:repeat>
+		</div>
+		<div style="display:block">
+			<ui:repeat value="#{vendingMachine.itemsD}" var="item">
+				<div style="width:15%;display:inline-block">
+					<h4><h:outputText value="#{item.name}"/></h4>
+					<h5><h:outputText value="#{item.price}"/></h5>
+					<h5><h:outputText value="#{item.location}"/></h5>
+					<h:commandButton class="button" id="btnSelectItem" rendered="#{vendingMachine.depositedMoney >= item.price}"
+						action="#{vendingMachine.buyItem(item)}" value="BUY" />
+				</div>
+			</ui:repeat>
+		</div>
+		<div style="display:block">
+			<ui:repeat value="#{vendingMachine.itemsE}" var="item">
+				<div style="width:15%;display:inline-block">
+					<h4><h:outputText value="#{item.name}"/></h4>
+					<h5><h:outputText value="#{item.price}"/></h5>
+					<h5><h:outputText value="#{item.location}"/></h5>
+					<h:commandButton class="button" id="btnSelectItem" rendered="#{vendingMachine.depositedMoney >= item.price}"
+						action="#{vendingMachine.buyItem(item)}" value="BUY" />
+				</div>
+			</ui:repeat>
+		</div>
+		
+		<div>
+			<div>
+				<h:inputText id="txtChange" value="#{vendingMachine.currentChange}"/>
+				<h:commandButton class="button" id="btnAddChange"
+				action="#{vendingMachine.addChange}" value="Deposit Change" />
+			</div>
+			<div>
+				$<h:inputText id="txtBills" value="#{vendingMachine.currentBills}"/>
+				<h:commandButton class="button" id="btnAddBills"
+				action="#{vendingMachine.addBills}" value="Deposit Bills" />
+			</div>
+		</div>
+		
+		<h4><h:outputText value="#{vendingMachine.depositedMoney}"/></h4>
+		<h:commandButton class="button" id="btnReturnChange"
+					action="#{vendingMachine.returnChange}" value="Return Change" />
+		<h4><h:outputText value="#{vendingMachine.errorMessage}"/></h4>
+		
+		<h3>Things you've bought!</h3>
+		<h:panelGroup rendered="#{fn:length(vendingMachine.purchasedItems) == 0}"><h5>Nothing yet...buy something!</h5></h:panelGroup>
+		<h:panelGroup rendered="#{fn:length(vendingMachine.purchasedItems) > 0}">
+			<ui:repeat value="#{vendingMachine.purchasedItems}" var="item">
+				<div>
+					<h:outputText value="#{item.name}"/>
+				</div>
+			</ui:repeat>
+		</h:panelGroup>
+	</h:form>
+</body>
+</html>
