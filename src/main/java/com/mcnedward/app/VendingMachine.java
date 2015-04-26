@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import com.mcnedward.app.repository.ItemRepository;
@@ -17,6 +18,7 @@ import com.mcnedward.app.repository.ItemRepository;
  *
  */
 @ManagedBean
+@ViewScoped
 public class VendingMachine {
 
 	private List<Item> items;
@@ -76,8 +78,11 @@ public class VendingMachine {
 	}
 
 	public String buyItem(Item item) {
-		repository.depositItem(item);
-		purchasedItems.add(item);
+		if (item.getStock() != 0) {
+			item.setStock(item.getStock() - 1);
+			repository.update(item);
+			purchasedItems.add(item);
+		}
 		return "";
 	}
 

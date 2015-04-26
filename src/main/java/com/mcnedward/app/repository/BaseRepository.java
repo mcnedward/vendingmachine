@@ -54,6 +54,20 @@ public class BaseRepository<Item> implements IRepository<Item> {
 	}
 
 	@Override
+	public Item update(Item item) {
+		try {
+			beginTransaction();
+			Item updatedItem = em.merge(item);
+			commitTransaction();
+			return updatedItem;
+		} catch (Exception e) {
+			System.out.println(e.getLocalizedMessage());
+			rollbackTransaction();
+			return null;
+		}
+	}
+
+	@Override
 	public boolean saveAndCommit(Item entity) {
 		try {
 			verifyTransaction();

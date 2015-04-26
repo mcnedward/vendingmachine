@@ -6,7 +6,7 @@ package com.mcnedward.app.repository;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 import javax.persistence.Query;
 
 import com.mcnedward.app.Item;
@@ -15,7 +15,7 @@ import com.mcnedward.app.Item;
  * @author Edward
  *
  */
-@Stateless
+@Stateful
 public class ItemRepository extends BaseRepository<Item> {
 
 	private static String[] CANDIES1 = { "Kit-Kat", "Snickers", "Reeses'" };
@@ -44,17 +44,6 @@ public class ItemRepository extends BaseRepository<Item> {
 		try {
 			beginTransaction();
 			item.setStock(item.getMax());
-			commitTransaction();
-		} catch (Exception e) {
-			System.out.println(e);
-			rollbackTransaction();
-		}
-	}
-
-	public void depositItem(Item item) {
-		try {
-			beginTransaction();
-			item.setStock(item.getStock() - 1);
 			commitTransaction();
 		} catch (Exception e) {
 			System.out.println(e);

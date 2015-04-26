@@ -36,4 +36,10 @@ public interface IRepository<Item> {
 	 */
 	boolean saveAndCommit(Item entity);
 
+	/**
+	 * @param item
+	 * @return
+	 */
+	Item update(Item item);
+
 }
